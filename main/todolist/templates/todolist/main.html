@@ -1,13 +1,28 @@
-{% if tasks %}
-<ul>
-    {% for task in tasks%}
-    <li>
-        <a href="{% url 'todolist:update_page' task.id %}">{{ task.task_name }}</a>
-        <a href="{% url 'todolist:delete' task.id %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-No tasks found.
+{% extends 'todolist/base.html' %}
+{% load static %}
 
-{% endif %}
+{% block js %}
+    <script src="{% static 'todolist/main.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <form action="{% url 'todolist:create' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input id="btn_create" class="btn btn-primary" type="submit" value="New Task">
+    </form>
+    {% if tasks %}
+    <ul>
+        {% for task in tasks%}
+        <li>
+            <a href="{% url 'todolist:update_page' task.id %}">{{ task.task_name }}</a>
+            <a href="{% url 'todolist:delete' task.id %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    No tasks found.
+
+    {% endif %}
+{% endblock %}
