@@ -16,8 +16,8 @@
     <ul>
         {% for task in tasks%}
         <li>
-            <a href="{% url 'todolist:update_page' task.id %}">{{ task.task_name }}</a>
-            <a href="{% url 'todolist:delete' task.id %}">Delete</a>
+            <input type="text" value="{{ task.task_name }}" onfocusout="updateTask(`{% url 'todolist:update' task.id %}`, this)">
+            <button class="btn btn-danger" onclick="delTask(`{% url 'todolist:delete' task.id %}`, this)">Delete</button>
         </li>
         {% endfor %}
     </ul>
@@ -25,4 +25,58 @@
     No tasks found.
 
     {% endif %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+        })
+        function updateTask(endpoint, element) {
+            let new_task_name = element.value.trim();
+            console.log(new_task_name)
+            httpRequest = new XMLHttpRequest;
+            httpRequest.onreadystatechange = function() {
+                postUpdate(element);
+            }
+
+            httpRequest.open("POST", endpoint)
+            httpRequest.setRequestHeader("X-CSRFToken", '{{ csrf_token }}')
+            httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            httpRequest.send(`task_name=${new_task_name}`)
+
+        }
+
+        function delTask(endpoint, div) {
+            if (confirm("Are you sure?")) {
+                httpRequest = new XMLHttpRequest();
+                httpRequest.onreadystatechange = function () {
+                    postDel(div)
+                }
+                httpRequest.open("GET", endpoint);
+                // xmlhttp.setRequestHeader("Content-Type", "application/json")
+                httpRequest.send()
+            }
+        }
+
+        function postDel(element) {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                let response = JSON.parse(httpRequest.responseText);
+                if (httpRequest.status === 200) {
+
+                    element.parentElement.remove();
+                } else {
+                    alert(`error deleting task: ${response['task_name']}`)
+                }
+            }
+        }
+
+        function postUpdate(element) {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+                    element.value = httpRequest.responseText;
+                } else {
+                    alert("Can not update!")
+                }
+            }
+        }
+
+    </script>
 {% endblock %}
