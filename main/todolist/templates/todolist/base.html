@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'todolist/base.css' %}">
 
-    {% block js %}
+    {% block style %}
 
     {% endblock %}
 
@@ -19,14 +19,21 @@
 </head>
 <body>
     <div class="nav-bar">
-        <span>Write something</span>
+        <a class="nav-link">Home</a>
+        <a class="nav-link">Log Out</a>
     </div>
 
     <hr>
-    
-    {% block content %}
+    <div class="content">
+        <div>
 
-    {% endblock %}
+        {% block content %}
 
+        {% endblock %}
+
+        </div>
+
+
+    </div> 
 </body>
 </html>

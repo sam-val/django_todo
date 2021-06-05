@@ -1,34 +1,46 @@
 {% extends 'todolist/base.html' %}
 {% load static %}
 
-{% block js %}
+{% block style %}
     <script src="{% static 'todolist/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'todolist/main.css' %}">
 {% endblock %}
 
 
 {% block content %}
-    <form action="{% url 'todolist:create' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input id="btn_create" class="btn btn-primary" type="submit" value="New Task">
-    </form>
     {% if tasks %}
-    <ul>
-        {% for task in tasks%}
-        <li>
-            <input type="text" value="{{ task.task_name }}" onfocusout="updateTask(`{% url 'todolist:update' task.id %}`, this)">
+
+    <div class="tasks-div">
+        <div class="new-task-div">
+            <form action="{% url 'todolist:create' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input id="btn_create" class="btn btn-primary" type="submit" value="New Task">
+            </form>
+
+    </div>
+        {% for task in tasks %}
+        <div class="task">
+            <textarea onfocusout="updateTask(`{% url 'todolist:update' task.id %}`, this)">{{ task.task_name }}</textarea>
             <button class="btn btn-danger" onclick="delTask(`{% url 'todolist:delete' task.id %}`, this)">Delete</button>
-        </li>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
+
     {% else %}
+
     No tasks found.
 
     {% endif %}
+
+    </div>
     <script>
+        var httpRequest;
+
         document.addEventListener("DOMContentLoaded", function() {
 
         })
+
         function updateTask(endpoint, element) {
             let new_task_name = element.value.trim();
             console.log(new_task_name)

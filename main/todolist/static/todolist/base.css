@@ -1,4 +1,27 @@
 
 .nav-bar {
+    display: flex;
     color: blue;
+
+}
+
+.nav-link {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    border-style: solid;
+    border-color: black;
+    color: green;
+    border-width: 0px 2px 0px 0px;
+    margin: 5px;
+}
+
+.nav-bar :last-child {
+    border: none;
+}
+
+
+.content {
+    display: flex;
+    justify-content: center;
 }

@@ -1,0 +1,47 @@
+
+.new-task-div {
+    margin-bottom: 10px;
+}
+
+
+
+.tasks-div {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.task , .new-task-div form{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.new-task-div form input {
+    width: 200px;
+}
+
+#btn_create, .task button {
+    width: 100px;
+}
+
+.task button {
+    height: 35px;
+}
+
+.task textarea {
+    width: 200px;
+    height: 100px;
+    border-radius: 4px;
+    border: none;
+    color: grey;
+    text-align: center;
+    justify-content: center;
+    background-color: rgb(50,50,50);
+    /* word-wrap: break-word; */
+}
+
+.task:nth-child(odd) textarea {
+    background-color: rgb(50,25,75);
+    color: yellow;
+}
