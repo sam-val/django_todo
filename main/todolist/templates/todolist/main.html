@@ -1,4 +1,5 @@
-{% extends 'todolist/base.html' %}
+{% extends 'base.html' %}
+
 {% load static %}
 
 {% block style %}
@@ -8,7 +9,6 @@
 
 
 {% block content %}
-    {% if tasks %}
 
     <div class="tasks-div">
         <div class="new-task-div">
@@ -19,6 +19,7 @@
             </form>
 
     </div>
+    {% if tasks %}
         {% for task in tasks %}
         <div class="task">
             <textarea onfocusout="updateTask(`{% url 'todolist:update' task.id %}`, this)">{{ task.task_name }}</textarea>

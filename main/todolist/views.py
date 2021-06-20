@@ -5,15 +5,19 @@ from .models import List, Task, CreateForm
 from django.urls import reverse
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 import sys
 import json
 # Create your views here.
 
 
+@login_required(login_url='/login')
 def index(request):
     form = CreateForm()
-    tasks = Task.objects.order_by("-pub_date")
+    # tasks = request.user.task_set
+    tasks = Task.objects.filter(user=request.user).order_by("-pub_date")
     return render(request, "todolist/main.html", {'tasks': tasks, 'form': form})
+
 
 # delete for ajax
 def delete(r, task_id):
