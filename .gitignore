@@ -1,2 +1,4 @@
 venv
 .vscode
+main/todolist/__pycache__
+main/main/__pycache__

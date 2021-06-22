@@ -24,4 +24,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('pw_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('signup/', views.signup, name='signup')
 ]

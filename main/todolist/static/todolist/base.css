@@ -1,19 +1,25 @@
 
 .nav-bar {
     display: flex;
-    color: blue;
-
 }
 
-.nav-link {
+.nav-bar a {
+    color: green;
+}
+
+.nav-bar span {
+    color: blue;
+    width: auto;
+}
+.nav-bar  * {
     width: 100px;
     height: 30px;
     text-align: center;
     border-style: solid;
     border-color: black;
-    color: green;
     border-width: 0px 2px 0px 0px;
     margin: 5px;
+    padding: 7px;
 }
 
 .nav-bar :last-child {

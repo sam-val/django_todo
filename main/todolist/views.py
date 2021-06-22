@@ -6,12 +6,13 @@ from django.urls import reverse
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 import sys
 import json
 # Create your views here.
 
 
-@login_required(login_url='/login')
+@login_required
 def index(request):
     form = CreateForm()
     # tasks = request.user.task_set
@@ -56,6 +57,7 @@ def create(r):
         if form.is_valid():
             t = Task()
             t.task_name = form.cleaned_data['task_text']
+            t.user = User.objects.get(username=r.user.username) 
             t.save()
             return HttpResponseRedirect(reverse("todolist:index"))
     

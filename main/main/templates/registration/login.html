@@ -6,6 +6,12 @@
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
+{% if messages %}
+    {% for m in messages %}
+        {{ m }}
+    {% endfor %}
+{% endif %}
+
 {% if next %}
     {% if user.is_authenticated %}
     <p>Your account doesn't have access to this page. To proceed,
@@ -15,24 +21,23 @@
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
+<form method="post" action="{% url 'login' %}" style="height: 200px; display: flex; flex-direction: column; align-items: left; justify-content: space-around;">
 {% csrf_token %}
-<table>
+<table >
 <tr>
-    <td>{{ form.username.label_tag }}</td>
+    <td style="width:100px">{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
 </tr>
 <tr>
-    <td>{{ form.password.label_tag }}</td>
+    <td style="witdh: 100px;">{{ form.password.label_tag }}</td>
     <td>{{ form.password }}</td>
 </tr>
 </table>
 
-<input type="submit" value="login">
+<input type="submit" value="Login" style="width: 100px;">
 <input type="hidden" name="next" value="{{ next }}">
+<p><a href="{% url 'signup' %}">Don't have an account?</a></p>
 </form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
 {% endblock %}
